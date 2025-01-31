@@ -74,7 +74,6 @@ const imageProps = {
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location", location);
   const routes = config.routes;
   const [props, setProps] = useState<{ [key: string]: any }>(textProps);
 

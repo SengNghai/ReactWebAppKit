@@ -57,8 +57,6 @@ export default function Message() {
                 icon={<LeftOutline onClick={onLeftClick} style={{ fontSize: 25, marginLeft: 12 }} />}
                 title={<div style={{ fontWeight: 'normal' }}>卡片标题</div>}
                 extra={<MoreOutline onClick={onRightClick} style={{  fontSize: 25, marginRight: 12 }} />}
-                // onBodyClick={onBodyClick}
-                // onHeaderClick={onHeaderClick}
                 style={{ borderRadius: 16, padding: 0 }}
             >
                 <div className={'content'}>
@@ -74,7 +72,7 @@ export default function Message() {
                                 />
                             }
                             description={(
-                                <Card onClick={onClick}
+                                <Card
                                     style={{ borderRadius: 5, marginRight: 62, backgroundColor: '#2d2f2d', color: 'white' }}
                                 >
                                     <div>
@@ -99,7 +97,7 @@ export default function Message() {
                                 />
                             }
                             description={(
-                                <Card onClick={onClick}
+                                <Card
                                     style={{ borderRadius: 5, marginLeft: 62, backgroundColor: 'green', color: 'white' }}
                                 >
                                     <div>

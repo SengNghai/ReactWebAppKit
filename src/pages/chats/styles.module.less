@@ -1,0 +1,23 @@
+.tabs {
+    padding: 45px 0 50px 0;
+    position: relative;
+    :global {
+        .body {
+            height: calc(100vh - 95px);
+            width: 100%;
+            // border: 1px solid red;
+        }
+        .bottom {
+            width: 100vw;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            flex: 0;
+            z-index: 1000;
+            border-top: solid 1px var(--adm-color-border);
+            background-color: var(--adm-color-background);
+            color: var(--adm-color-text);
+        }
+    }
+}
+

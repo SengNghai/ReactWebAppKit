@@ -1,0 +1,32 @@
+.message {
+    :global {
+        .content {
+            // height: calc(100vh - 180px);
+
+            .description{
+                color: #999;
+            }
+            .adm-list-item-content{
+                align-items: flex-start !important;
+                border-top: none;
+            }
+            .adm-card-body{
+                padding: var(--adm-card-body-padding-block, 7px) 0;
+            }
+            .adm-list-body {
+                border: none !important;
+            }
+        }
+
+        .footer {
+            padding: 11px 0 11px 0;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .customBody {
+            color: var(--adm-color-success);
+        }
+    }
+}

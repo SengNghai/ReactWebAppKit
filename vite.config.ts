@@ -1,5 +1,5 @@
 /// <reference lib="webworker" />
-import { defineConfig, UserConfig, UserConfigExport } from 'vite'
+import { defineConfig, UserConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path'

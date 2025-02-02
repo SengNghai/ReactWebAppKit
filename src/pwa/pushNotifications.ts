@@ -1,46 +1,73 @@
-export const subscribeUser = async () => {
-  if ('serviceWorker' in navigator && 'PushManager' in window) {
-    try {
-      const registration = await navigator.serviceWorker.ready;
-      const existingSubscription = await registration.pushManager.getSubscription();
+async function subscribeUserToPush() {
+  try {
+    // 获取现有订阅
+    const registration = await navigator.serviceWorker.ready;
+    console.log('Service Worker is ready:', registration);
 
-      if (existingSubscription) {
-        // 取消现有订阅
-        await existingSubscription.unsubscribe();
-        console.log('Existing subscription unsubscribed');
-      }
+    const existingSubscription = await registration.pushManager.getSubscription();
+    console.log('Existing subscription:', existingSubscription);
 
-      // const response = await fetch('http://localhost:5000/vapidPublicKey');
-      // if (!response.ok) {
-      //   throw new Error('Failed to fetch VAPID public key');
-      // }
-      // const data = await response.json();
-
-      const data = {
-        publicKey: 'BH5GPho1RYRX5zjQeBf_8rBISv0Tf0IwROL1yHmfOdi2v5SHEbrsygbjYkS0VHT3m-8ifJYyjqsdhIJCTOo1J6s',
-        privateKey: 'UG188tXc-11WNUNmaSBQFfqsnZH9Qkyzgu_8aqb9a28'
-      }
-
-      const publicKey = data.publicKey;
-
-      const subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(publicKey)
-      });
-
-      await fetch('http://localhost:5000/subscribe', {
-        method: 'POST',
-        body: JSON.stringify(subscription),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      console.log('New subscription created');
-    } catch (error) {
-      console.error('Error during subscription:', error);
+    // 检查是否存在订阅
+    if (existingSubscription) {
+      console.log('User is already subscribed:', existingSubscription);
+      // 取消现有订阅
+      await existingSubscription.unsubscribe();
+      console.log('Existing subscription cancelled');
     }
+
+    //////////////////////////////
+     const response = await fetch('http://localhost:5000/vapidPublicKey');
+     if (!response.ok) {
+       throw new Error('Failed to fetch VAPID public key');
+     }
+     const data = await response.json();
+     window.localStorage.setItem('vapidPublicKey', JSON.stringify(data));
+     console.log('vapidPublicKey', data);
+     const publicKey = data.publicKey;
+    //////////////////////////////
+    
+    // 进行新的订阅
+    const newSubscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(publicKey)
+    });
+
+    console.log('New subscription:', newSubscription);
+    // 在服务器端保存新的订阅
+    await sendSubscriptionToServer(newSubscription);
+    console.log('New subscription sent to server');
+  } catch (error) {
+    console.error('Failed to subscribe user:', error);
   }
+}
+
+// 假设 sendSubscriptionToServer 是一个异步函数，用于将订阅发送到服务器
+async function sendSubscriptionToServer(subscription: PushSubscription) {
+  try {
+    // 你的代码，用于将订阅发送到服务器
+    console.log('Sending subscription to server:', subscription);
+    const res =await fetch('http://localhost:5000/subscribe', {
+      method: 'POST',
+      body: JSON.stringify(subscription),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    console.log('New subscription created', res);
+  } catch (error) {
+    console.error('Failed to send subscription to server:', error);
+  }
+}
+
+
+
+
+export const subscribeUser = async () => {
+ if ('serviceWorker' in navigator && 'PushManager' in window) {
+   subscribeUserToPush();
+ }
+ 
 };
 
 

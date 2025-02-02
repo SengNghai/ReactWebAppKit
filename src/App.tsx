@@ -22,8 +22,6 @@ import { useNavigate } from "react-router";
 import MyPwaApps from "./pwa/components/MyPwaApps";
 import styles from './App.module.less';
 
-// import "./App.css";
-
 const colors = [
   "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1xigWT.img?w=800&h=435&q=60&m=2&f=jpg",
   "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1xijmK.img?w=800&h=435&q=60&m=2&f=jpg",
@@ -227,7 +225,7 @@ function App() {
           <Swiper autoplay={true} loop={true}>
             {items}
           </Swiper>
-          <Card title="导航">
+          <Card title="Dark Mode">
             <Space align="center">
               <div>Dark Mode</div>
               <Switch

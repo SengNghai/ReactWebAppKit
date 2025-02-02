@@ -1,7 +1,5 @@
 import { lazy } from "react";
 
-export const PUBLIC_KEY = 'BOMjv_BrgyPwhgno58jEAa6TnhicxcLGxAnj0h_kjFH0T-hU0u1aOpvNvHDOMnRvUv_FJJm36ui_XvxvXYqW9L4';
-
 export default {
     routes: [
         {

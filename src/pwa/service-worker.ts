@@ -2,22 +2,13 @@
 
 // 声明 self 为 ServiceWorkerGlobalScope 类型
 declare let self: ServiceWorkerGlobalScope;
-// self.addEventListener('push', function (event: PushEvent) {
-//     const data = event.data!.json();
-//     const options = {
-//         body: data.notification.body,
-//         icon: data.notification.icon
-//     };
-//     event.waitUntil(
-//         self.registration.showNotification(data.notification.title, options)
-//     );
-// });
 
 self.addEventListener('push', (event: PushEvent) => {
   const data = event.data ? event.data.json() : {};
   const options: NotificationOptions = {
     body: data.notification.body,
     icon: data.notification.icon,
+    badge: data.notification.badge,
     data: {
       url: data.url || '/'
     }
@@ -61,6 +52,16 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
   console.log('Service worker activating...', event);
 });
 
-self.addEventListener('fetch', (event: FetchEvent) => {
+
+self.addEventListener('fetch', (event) => {
   console.log('Fetching:', event.request.url);
+  const url = new URL(event.request.url);
+  if (url.protocol === 'pwaapps:') {
+    // 处理自定义 URL Scheme 请求
+    const path = url.pathname;
+    if (path === '/open') {
+      // 执行相关操作
+      console.log('PWA 应用已打开');
+    }
+  }
 });

@@ -314,7 +314,7 @@ function App() {
           magnetic="x"
           onClick={handleFloatingBubble}
           style={{
-            "--initial-position-bottom": "24px",
+            "--initial-position-bottom": "180px",
             "--initial-position-right": "24px",
             "--edge-distance": "24px",
           }}

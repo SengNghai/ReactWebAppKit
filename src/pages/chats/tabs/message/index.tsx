@@ -1,8 +1,12 @@
 import { Button, Card, List, Toast, Image } from 'antd-mobile'
 import { AddSquareOutline, LeftOutline, MoreOutline } from 'antd-mobile-icons'
 import { useNavigate } from "react-router";
-import styles from './index.module.less'
 
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
+import i18n from '@emoji-mart/data/i18n/zh.json'
+
+import styles from './index.module.less'
 
 export const users = [
     {
@@ -114,6 +118,7 @@ export default function Message() {
                     </List>
                 </div>
                 <div className={'footer'} onClick={e => e.stopPropagation()}>
+                    <Picker data={data} i18n={i18n} onEmojiSelect={console.log} />
                     <Button
                         color='primary'
                         onClick={() => {

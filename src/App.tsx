@@ -11,16 +11,23 @@ import {
   Swiper,
   Switch,
   WaterMark,
+  ConfigProvider,
 } from "antd-mobile";
+// import enUS from 'antd-mobile/es/locales/en-US'
+import zhCN from 'antd-mobile/es/locales/zh-CN'
 import { MessageFill } from "antd-mobile-icons";
 import { useLayoutEffect, useState } from "react";
 import { Link, Route, Routes, useLocation } from "react-router";
 import googleLogo from "./assets/google.svg";
 import config from "./configs";
 
+
 import { useNavigate } from "react-router";
 import MyPwaApps from "./pwa/components/MyPwaApps";
 import useClearCache from "./hooks/useClearCache.ts";
+
+import CalendarPickered from "./components/CalendarPickered";
+
 import styles from './App.module.less';
 
 const colors = [
@@ -203,137 +210,143 @@ function App() {
   // /im/message
   return (
     <>
-      {location.pathname.includes("/im") ? (
-        location.pathname !== "/im/message" ? (
-          <NavBar
-            back={location.pathname === "/im/message" ? "Back" : "Home"}
-            onBack={handleOnBack}
-            style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: "100vw",
-            zIndex: 1000,
-            background: 'var(--adm-color-background)',
-            borderBottom: 'solid 1px var(--adm-color-border)'
-          }}
-        >
-          title
-        </NavBar>
-        ) : null
-      ) : (
-        <>
-          <NoticeBar
-            content="consequat eu pariatur mollit enim et eu deserunt nostrud officia ipsum irure eu non sint elit Lorem id aliquip non"
-            color="alert"
-          />
-          <Swiper autoplay={true} loop={true}>
-            {items}
-          </Swiper>
-          <Card title="Dark Mode">
-            <Space align="center">
-              <div>Dark Mode</div>
-              <Switch
-                checked={enableDarkMode}
-                onChange={(v) => {
-                  setEnableDarkMode(v);
-                }}
-              />
-            </Space>
-          </Card>
-          <Card title="JumboTabs">
-            <JumboTabs defaultActiveKey="insects">
-              <JumboTabs.Tab title="水果" description="描述文案" key="fruits" />
-              <JumboTabs.Tab
-                title="蔬菜"
-                description="描述文案"
-                key="vegetables"
-              />
-              <JumboTabs.Tab
-                title="昆虫"
-                description="描述文案"
-                key="insects"
-              />
-              <JumboTabs.Tab
-                title="花卉"
-                description="描述文案"
-                key="flowers"
-              />
-              <JumboTabs.Tab title="鸟类" description="描述文案" key="birds" />
-              <JumboTabs.Tab title="人类" description="描述文案" key="human" />
-              <JumboTabs.Tab
-                title="水果"
-                description="描述文案"
-                key="fruits1"
-              />
-              <JumboTabs.Tab
-                title="蔬菜"
-                description="描述文案"
-                key="vegetables2"
-              />
-              <JumboTabs.Tab
-                title="昆虫"
-                description="描述文案"
-                key="insects3"
-              />
-              <JumboTabs.Tab
-                title="花卉"
-                description="描述文案"
-                key="flowers4"
-              />
-              <JumboTabs.Tab title="鸟类" description="描述文案" key="birds5" />
-              <JumboTabs.Tab title="人类" description="描述文案" key="human6" />
-            </JumboTabs>
-          </Card>
-          <Card title="导航">
-            <Navs />
-          </Card>
-          <Card title="评分">
-            <Rate allowHalf defaultValue={2.5} />
-          </Card>
-          
-          <Card title="PWA">
-            <MyPwaApps />
-          </Card>
-          <Card title="清除缓存数据">
-            <Button color="primary" onClick={clearCache}>清除所有缓存</Button>
-          </Card>
-          <Card title="水印">
-            <div className="water-mark-overlay">
-              <Space wrap>
-                <Button color="primary" onClick={() => setProps(textProps)}>
-                  普通水印
-                </Button>
-                <Button color="success" onClick={() => setProps(rowsTextProps)}>
-                  多行文字水印
-                </Button>
-                <Button color="danger" onClick={() => setProps(imageProps)}>
-                  图片水印
-                </Button>
+      <ConfigProvider locale={zhCN}>
+        {location.pathname.includes("/im") ? (
+          location.pathname !== "/im/message" ? (
+            <NavBar
+              back={location.pathname === "/im/message" ? "Back" : "Home"}
+              onBack={handleOnBack}
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: "100vw",
+                zIndex: 1000,
+                background: 'var(--adm-color-background)',
+                borderBottom: 'solid 1px var(--adm-color-border)'
+              }}
+            >
+              title
+            </NavBar>
+          ) : null
+        ) : (
+          <>
+            <NoticeBar
+              content="consequat eu pariatur mollit enim et eu deserunt nostrud officia ipsum irure eu non sint elit Lorem id aliquip non"
+              color="alert"
+            />
+            <Swiper autoplay={true} loop={true}>
+              {items}
+            </Swiper>
+            <Card title="Dark Mode">
+              <Space align="center">
+                <div>Dark Mode</div>
+                <Switch
+                  checked={enableDarkMode}
+                  onChange={(v) => {
+                    setEnableDarkMode(v);
+                  }}
+                />
               </Space>
-              <WaterMark {...props} />
-            </div>
-          </Card>
-        </>
-      )}
+            </Card>
+            <Card title="CalendarPicker 日历选择器">
+              <CalendarPickered />
+            </Card>
+            <Card title="水印">
+              <div className="water-mark-overlay">
+                <Space wrap>
+                  <Button color="primary" onClick={() => setProps(textProps)}>
+                    普通水印
+                  </Button>
+                  <Button color="success" onClick={() => setProps(rowsTextProps)}>
+                    多行文字水印
+                  </Button>
+                  <Button color="danger" onClick={() => setProps(imageProps)}>
+                    图片水印
+                  </Button>
+                </Space>
+                <WaterMark {...props} />
+              </div>
+            </Card>
+            <Card title="JumboTabs">
+              <JumboTabs defaultActiveKey="insects">
+                <JumboTabs.Tab title="水果" description="描述文案" key="fruits" />
+                <JumboTabs.Tab
+                  title="蔬菜"
+                  description="描述文案"
+                  key="vegetables"
+                />
+                <JumboTabs.Tab
+                  title="昆虫"
+                  description="描述文案"
+                  key="insects"
+                />
+                <JumboTabs.Tab
+                  title="花卉"
+                  description="描述文案"
+                  key="flowers"
+                />
+                <JumboTabs.Tab title="鸟类" description="描述文案" key="birds" />
+                <JumboTabs.Tab title="人类" description="描述文案" key="human" />
+                <JumboTabs.Tab
+                  title="水果"
+                  description="描述文案"
+                  key="fruits1"
+                />
+                <JumboTabs.Tab
+                  title="蔬菜"
+                  description="描述文案"
+                  key="vegetables2"
+                />
+                <JumboTabs.Tab
+                  title="昆虫"
+                  description="描述文案"
+                  key="insects3"
+                />
+                <JumboTabs.Tab
+                  title="花卉"
+                  description="描述文案"
+                  key="flowers4"
+                />
+                <JumboTabs.Tab title="鸟类" description="描述文案" key="birds5" />
+                <JumboTabs.Tab title="人类" description="描述文案" key="human6" />
+              </JumboTabs>
+            </Card>
+            <Card title="导航">
+              <Navs />
+            </Card>
+            <Card title="评分">
+              <Rate allowHalf defaultValue={2.5} />
+            </Card>
 
-      {!location.pathname.includes("/im") ? (
-        <FloatingBubble
-          axis="xy"
-          magnetic="x"
-          onClick={handleFloatingBubble}
-          style={{
-            "--initial-position-bottom": "180px",
-            "--initial-position-right": "24px",
-            "--edge-distance": "24px",
-          }}
-        >
-          <MessageFill fontSize={32} />
-        </FloatingBubble>
-      ) : null}
-      <main className={styles.App}>
-        <Routes>{renderRoutes()}</Routes>
-      </main>
+            <Card title="PWA">
+              <MyPwaApps />
+            </Card>
+            <Card title="清除缓存数据">
+              <Button color="primary" onClick={clearCache}>清除所有缓存</Button>
+            </Card>
+            
+          </>
+        )}
+
+        {!location.pathname.includes("/im") ? (
+          <FloatingBubble
+            axis="xy"
+            magnetic="x"
+            onClick={handleFloatingBubble}
+            style={{
+              "--initial-position-bottom": "180px",
+              "--initial-position-right": "24px",
+              "--edge-distance": "24px",
+            }}
+          >
+            <MessageFill fontSize={32} />
+          </FloatingBubble>
+        ) : null}
+        <main className={styles.App}>
+          <Routes>{renderRoutes()}</Routes>
+        </main>
+      </ConfigProvider>
     </>
   );
 }

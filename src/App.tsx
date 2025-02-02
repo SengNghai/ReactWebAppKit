@@ -20,6 +20,7 @@ import config from "./configs";
 
 import { useNavigate } from "react-router";
 import MyPwaApps from "./pwa/components/MyPwaApps";
+import useClearCache from "./hooks/useClearCache.ts";
 import styles from './App.module.less';
 
 const colors = [
@@ -76,6 +77,10 @@ function App() {
   const [props, setProps] = useState<{ [key: string]: any }>(textProps);
 
   const [enableDarkMode, setEnableDarkMode] = useState(true);
+
+  // 清除缓存
+  const clearCache = useClearCache();
+
   useLayoutEffect(() => {
     document.documentElement.setAttribute(
       "data-prefers-color-scheme",
@@ -179,7 +184,7 @@ function App() {
     );
   };
 
-  const handleFloatingBubble = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleFloatingBubble = (_e: React.MouseEvent<HTMLDivElement>) => {
     navigate("/im");
   };
 
@@ -286,8 +291,12 @@ function App() {
           <Card title="评分">
             <Rate allowHalf defaultValue={2.5} />
           </Card>
+          
           <Card title="PWA">
             <MyPwaApps />
+          </Card>
+          <Card title="清除缓存数据">
+            <Button color="primary" onClick={clearCache}>清除所有缓存</Button>
           </Card>
           <Card title="水印">
             <div className="water-mark-overlay">

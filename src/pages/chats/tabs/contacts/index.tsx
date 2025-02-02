@@ -4,7 +4,6 @@ import {
   Image,
   PullToRefresh,
 } from "antd-mobile";
-import { Action } from "antd-mobile/es/components/swipe-action";
 import { sleep } from "antd-mobile/es/utils/sleep";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";

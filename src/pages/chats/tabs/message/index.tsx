@@ -42,9 +42,6 @@ export const users = [
 
 export default function Message() {
     const navigate = useNavigate();
-    const onClick = () => {
-        Toast.show('点击了卡片')
-    }
 
     const onLeftClick = () => {
         console.log('点击了卡片左区域')

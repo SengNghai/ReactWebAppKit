@@ -20,8 +20,8 @@ export default defineConfig(({mode}: UserConfig) => {
         mode: 'development',
         base: '/',
         manifest: {
-          name: 'PwaApps',
-          short_name: 'PWA应用',
+          name: 'pwaapps',
+          short_name: 'pwaapps',
           description: 'PWA应用IOS/Android/H5/桌面快捷方式/通知/下载快捷方式/离线访问/缓存/PWA/PWA应用/PWA应用IOS/PWA应用Android/PWA应用H5/PWA应用桌面快捷方式/PWA应用通知/PWA应用下载快捷方式/PWA应用离线访问/PWA应用缓存',
           theme_color: "#000000",
           icons: [
@@ -35,7 +35,7 @@ export default defineConfig(({mode}: UserConfig) => {
         },
         registerType: 'autoUpdate',
         workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg}'], //缓存相关静态资源
+          globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg}', '/registerSW.js'], //缓存相关静态资源
           runtimeCaching: [
             {
               urlPattern: ({ url }) => url.origin === self.location.origin,
@@ -48,10 +48,12 @@ export default defineConfig(({mode}: UserConfig) => {
                 }
               }
             }
-          ]
+          ],
+          skipWaiting: true,
+          clientsClaim: true,
         },
         devOptions: {
-          enabled: true,
+          enabled: true, 
         },
       }),
       viteVConsole({

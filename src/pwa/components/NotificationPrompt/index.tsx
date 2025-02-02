@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const NotificationPrompt: React.FC = () => {
-  const [publicKey, setPublicKey] = useState<string | null>(null);
   const [messageCount, setMessageCount] = useState<number>(0);
 
 
@@ -24,7 +23,7 @@ const NotificationPrompt: React.FC = () => {
         applicationServerKey: publicKey || ''
       });
 
-      const res = await fetch('http://localhost:5000/sendMessage', {
+      const res = await fetch('http://localhost:5000/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
